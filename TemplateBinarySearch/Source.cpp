@@ -10,6 +10,12 @@ void main() {
 	intTree.add(2);
 	intTree.inorder();
 	cout << endl;
+	intTree.preorder();
+	cout << endl;
+	intTree.postorder();
+	cout << endl << boolalpha << intTree.find(3);
+	cout << endl << boolalpha << intTree.find(4);
+	cout << endl;
 
 
 	GenericBinarySearchTree<double> doubleTree;
@@ -17,6 +23,9 @@ void main() {
 	doubleTree.add(3.1);
 	doubleTree.add(2.1);
 	doubleTree.inorder();
+	cout << endl << boolalpha << doubleTree.find(3.1);
+	cout << endl << boolalpha << doubleTree.find(3.2);
+
 	cout << endl;
 
 	GenericBinarySearchTree<char> charTree;
@@ -24,6 +33,8 @@ void main() {
 	charTree.add('c');
 	charTree.add('b');
 	charTree.inorder();
+	cout << endl << boolalpha << charTree.find('a');
+	cout << endl << boolalpha << charTree.find('d');
 	cout << endl;
 
 
