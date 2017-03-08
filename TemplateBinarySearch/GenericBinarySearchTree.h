@@ -1,4 +1,6 @@
 #pragma once
+#include <algorithm>
+#include <iomanip>
 template <class T>
 class TreeNode {
 	template <class T>
@@ -24,6 +26,12 @@ public:
 	void preorder();
 	void postorder();
 	bool find(T);
+	int height();
+	void printTree();
+	T findMin();
+	T findMax();
+	void deleteNode(T);
+
 private:
 	bool find(TreeNode<T>*, T);
 	TreeNode<T> *root;
@@ -32,6 +40,11 @@ private:
 	void preorder(TreeNode<T> *);
 	void postorder(TreeNode<T> *);
 	void destroy(TreeNode<T> *);
+	int height(TreeNode<T> *);
+	void printTree(TreeNode<T> *, int);
+	TreeNode<T> * findMin(TreeNode<T> *);
+	TreeNode<T> * findMax(TreeNode<T> *);
+	TreeNode<T> * deleteNode(T, TreeNode<T> *);
 
 };
 
@@ -81,6 +94,36 @@ template<class T>
 inline bool GenericBinarySearchTree<T>::find(T data)
 {
 	return find(root, data);
+}
+
+template<class T>
+inline int GenericBinarySearchTree<T>::height()
+{
+	return height(root);
+}
+
+template<class T>
+inline void GenericBinarySearchTree<T>::printTree()
+{
+	printTree(root, 0);
+}
+
+template<class T>
+inline T GenericBinarySearchTree<T>::findMin()
+{
+	return findMin(root)->data;
+}
+
+template<class T>
+inline T GenericBinarySearchTree<T>::findMax()
+{
+	return findMax(root)->data;
+}
+
+template<class T>
+inline void GenericBinarySearchTree<T>::deleteNode(T dataIn)
+{
+	deleteNode(dataIn, root);
 }
 
 template<class T>
@@ -163,3 +206,86 @@ inline void GenericBinarySearchTree<T>::destroy(TreeNode<T>* node)
 	}
 }
 
+template<class T>
+inline int GenericBinarySearchTree<T>::height(TreeNode<T>* node)
+{
+	if (node == nullptr) {
+		return -1;
+	}
+	else {
+		return 1 + std::max(height(node->left), height(node->right));
+	}
+	
+}
+
+template<class T>
+inline void GenericBinarySearchTree<T>::printTree(TreeNode<T>* node, int  indent = 0 )
+{
+	if (node != nullptr) {
+		if (node->right) {
+			printTree(node->right, indent + 4);
+		}
+		if (indent) {
+			cout << setw(indent) << ' ';
+		}
+		if (node->right) cout << " /\n" << setw(indent) << ' ';
+		cout << node->data << "\n ";
+		if (node->left) {
+			cout << setw(indent) << ' ' << " \\\n";
+			printTree(node->left, indent + 4);
+		}
+	}
+}
+
+template<class T>
+inline TreeNode<T> * GenericBinarySearchTree<T>::findMin(TreeNode<T>* node)
+{
+	while (node->left != nullptr) {
+		node = node->left;
+	}
+	return node;
+}
+
+template<class T>
+inline TreeNode<T> * GenericBinarySearchTree<T>::findMax(TreeNode<T>* node)
+{
+	while (node->right != nullptr) {
+		node = node->right;
+	}
+	return node;
+}
+
+template<class T>
+inline TreeNode<T> * GenericBinarySearchTree<T>::deleteNode(T dataIn, TreeNode<T>* node)
+{
+	if (node != nullptr) {
+		if (dataIn < node->data) {
+			node->left = deleteNode(dataIn, node->left);
+		}
+		else if (dataIn > node->data) {
+			node->right = deleteNode(dataIn, node->right);
+		}
+		else {
+			if (node->left == nullptr && node->right == nullptr) {
+				delete node;
+				node = nullptr;
+			}
+			else if (node->left == nullptr) {
+				TreeNode<T>* temp = node;
+				node = node->right;
+				delete temp;
+			}
+			else if (node->right == nullptr) {
+				TreeNode<T>* temp = node;
+				node = node->left;
+				delete temp;
+			}
+			else {
+				TreeNode<T>* temp = findMin(node->right);
+				node->data = temp->data;
+				node->right = deleteNode(temp->data, node->right);
+			}
+		}
+	}
+	return node;
+}

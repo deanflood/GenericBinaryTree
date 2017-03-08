@@ -28,13 +28,29 @@ void main() {
 	cout << endl;
 
 	GenericBinarySearchTree<char> charTree;
-	charTree.add('a');
-	charTree.add('c');
 	charTree.add('b');
+	charTree.add('a');
+	charTree.add('d');
+	charTree.add('e');
+	charTree.add('f');
+
 	charTree.inorder();
 	cout << endl << boolalpha << charTree.find('a');
 	cout << endl << boolalpha << charTree.find('d');
 	cout << endl;
+
+	cout << charTree.height() << endl;
+
+	cout << "MIN: " << intTree.findMin() << endl;
+	cout << "MAX: " << doubleTree.findMax() << endl;
+
+	charTree.printTree();
+
+	cout << endl << endl;
+
+	charTree.deleteNode('e');
+
+	charTree.printTree();
 
 	system("pause");
 }
