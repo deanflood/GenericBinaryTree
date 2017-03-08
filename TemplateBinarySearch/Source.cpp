@@ -4,6 +4,7 @@
 using namespace std;
 
 void main() {
+
 	GenericBinarySearchTree<int> intTree;
 	intTree.add(1);
 	intTree.add(3);
@@ -17,7 +18,6 @@ void main() {
 	cout << endl << boolalpha << intTree.find(4);
 	cout << endl;
 
-
 	GenericBinarySearchTree<double> doubleTree;
 	doubleTree.add(1.1);
 	doubleTree.add(3.1);
@@ -25,7 +25,6 @@ void main() {
 	doubleTree.inorder();
 	cout << endl << boolalpha << doubleTree.find(3.1);
 	cout << endl << boolalpha << doubleTree.find(3.2);
-
 	cout << endl;
 
 	GenericBinarySearchTree<char> charTree;
@@ -37,7 +36,5 @@ void main() {
 	cout << endl << boolalpha << charTree.find('d');
 	cout << endl;
 
-
 	system("pause");
-	
 }

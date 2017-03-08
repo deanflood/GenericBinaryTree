@@ -18,6 +18,7 @@ class GenericBinarySearchTree
 {	
 public:
 	GenericBinarySearchTree();
+	~GenericBinarySearchTree();
 	void add(T);
 	void inorder();
 	void preorder();
@@ -30,6 +31,7 @@ private:
 	void inorder(TreeNode<T> *);
 	void preorder(TreeNode<T> *);
 	void postorder(TreeNode<T> *);
+	void destroy(TreeNode<T> *);
 
 };
 
@@ -37,6 +39,12 @@ template<class T>
 inline GenericBinarySearchTree<T>::GenericBinarySearchTree()
 {
 	root = nullptr;
+}
+
+template<class T>
+inline GenericBinarySearchTree<T>::~GenericBinarySearchTree()
+{
+	destroy(root);
 }
 
 template<class T>
@@ -142,6 +150,16 @@ inline void GenericBinarySearchTree<T>::postorder(TreeNode<T>* node)
 		preorder(node->left);
 		preorder(node->right);
 		cout << node->data;
+	}
+}
+
+template<class T>
+inline void GenericBinarySearchTree<T>::destroy(TreeNode<T>* node)
+{
+	if (node != nullptr) {
+		destroy(node->left);
+		destroy(node->right);
+		delete node;
 	}
 }
 
