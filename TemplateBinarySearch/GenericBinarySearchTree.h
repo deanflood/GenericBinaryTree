@@ -190,8 +190,8 @@ template<class T>
 inline void GenericBinarySearchTree<T>::postorder(TreeNode<T>* node)
 {
 	if (node != nullptr) {
-		preorder(node->left);
-		preorder(node->right);
+		postorder(node->left);
+		postorder(node->right);
 		cout << node->data;
 	}
 }
